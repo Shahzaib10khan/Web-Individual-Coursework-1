@@ -10,6 +10,72 @@
 
 <body class="bg-dark">
 
+<div id="app">
+        <div class="container">
+            <div class="row" v-if="!checkout">
+                <div class="col-1">
+                    <div class="form text-white" style="margin-left: -50px; margin-top: 25px;">
+                        <h3>Sort By:</h3>
+                        <div class="form-group mt-5">
+                            <select v-model="filter" class="form-control" v-on:change="sortCourse">
+                                <option value="">Choose Any..</option>
+                                <option value="subject">Subject</option>
+                                <option value="city">City</option>
+                                <option value="price">Price</option>
+                                <option value="availability">Availability</option>
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="form-check">
+                            <input type="radio" v-model="sort" value="assending" id="assending" class="form-check-input" v-on:change="sortCourse">
+                            <label for="assending" class="form-check-label ml-3">Ascending </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" v-model="sort" value="descending" id="descending" class="form-check-input" v-on:change="sortCourse">
+                            <label for="descending" class="form-check-label ml-3">Descending </label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-10">
+                    <h3 class="text-white mt-4 mb-3">Available Lessons</h3>
+                    <div>
+                        <input type="text" class="form-control" placeholder="Search ...." v-model="search" v-on:input="filterCourses">
+                    </div>
+                    <div class="row">
+                        <div class="col-4 mt-4" v-for="lesson in allCourses" :key="lesson.id">
+                            <div class="card" style="width: 18rem;">
+                                <div class="text-center">
+                                    <img :src="lesson.thumbnail" class="card-img-top" alt="logo" style="height: 128px; object-fit: cover;">
+                                </div>
+                                <div class="card-title text-center mt-1">
+                                    <strong>{{ lesson.course }}</strong>
+                                </div>
+                                <div class="card-body">
+                                    <strong>City: </strong>{{lesson.city}} <hr>
+                                    <strong>Price: </strong>{{lesson.price}} <hr>
+                                    {{lesson.description.substr(0, 50) + '...'}}
+                                </div>
+                                
+                                <div class="row card-footer justify-content-center">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary" v-on:click="addToCart(lesson)" :disabled="lesson.space <= 0">Add to cart</button>
+                                    </div>
+                                    <div class="col-6 mt-1">
+                                        <strong> Space: {{lesson.space}} </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 mt-4">
+                   <button class="btn btn-primary" v-on:click="checkout=true" :disabled="cart.length <= 0">Cart ({{cart.length}})</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <!-- Bootstrap script -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -18,6 +84,29 @@
     <script>
         var webstore = new Vue({
             el: '#app',
+ata() {
+                return{
+                    projectName: 'Here will be the project name.',
+                    cart: [],
+                    allCourses: [],
+                    errors: {
+                        phone: '',
+                        name: ''
+                    },
+                    filter: '',
+                    sort: '',
+                    checkout: false,
+                    search: '',
+                    name: '',
+                    phone: '',
+                    successAlert: false,
+                    isValid: false,
+                    lessons: lessons
+                }
+            },
+            mounted() {
+                this.allCourses = this.lessons;
+            },
         });
     </script>
 
