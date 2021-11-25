@@ -107,6 +107,19 @@ ata() {
             mounted() {
                 this.allCourses = this.lessons;
             },
+		methods:{
+		addToCart(lesson){
+                    let exists = this.cart.includes(lesson)
+                    lesson.space -= 1;
+                    if (exists) {
+                        lesson.reserved += 1;
+                    }else{
+                        lesson.reserved += 1;
+                        this.cart.push(lesson)
+                    }
+                    
+                },
+}
         });
     </script>
 
