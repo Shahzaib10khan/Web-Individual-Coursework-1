@@ -183,7 +183,7 @@
                                         this.allCourses.sort((a, b) => (a.course > b.course) ? 1 : -1)
                                     break;
                                 case 'location':
-                                        this.allCourses.sort((a, b) => (a.city > b.city) ? 1 : -1)
+                                        this.allCourses.sort((a, b) => (a.location > b.location) ? 1 : -1)
                                     break;
                                 case 'price':
                                         this.allCourses.sort((a, b) => (a.price > b.price) ? 1 : -1)
@@ -201,7 +201,7 @@
                                     this.allCourses.reverse((a, b) => (a.course > b.course) ? 1 : -1)
                                     break;
                                 case 'location':
-                                    this.allCourses.reverse((a, b) => (a.city > b.city) ? 1 : -1)
+                                    this.allCourses.reverse((a, b) => (a.location > b.location) ? 1 : -1)
                                     break;
                                 case 'price':
                                     this.allCourses.reverse((a, b) => (a.price > b.price) ? 1 : -1)
@@ -302,8 +302,8 @@
                     let data = [];
                     this.lessons.forEach(el => {
                         let name = el.course.toLowerCase();
-                        let city = el.city.toLowerCase();
-                        if (name.includes(this.search) || city.includes(this.search)) {
+                        let location = el.location.toLowerCase();
+                        if (name.includes(this.search) || location.includes(this.search)) {
                             data.push(el)
                         }
                         this.allCourses = data;
